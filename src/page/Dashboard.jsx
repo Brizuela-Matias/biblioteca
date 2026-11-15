@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UsersRound, BookOpen, BarChart3 } from 'lucide-react';
+import {BookOpen, BarChart3, CircleDollarSign, UserRoundPen, UserStar, UserRoundGroup,HandCoins, SquareArrowDownLeftEnter} from 'lucide-react';
 import Socios from '../components/Socios.jsx';
 import Libro from '../components/Libros.jsx';
 import Pagos from '../components/Pagos.jsx';
@@ -53,7 +53,8 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
             <div className="seccion-botones">
 
                 <button className="btn-gestion" onClick={() => setMostrarSocios(true)}>
-                    <UsersRound />
+                    {/* <UsersRound /> */}
+                    <UserRoundGroup />
                     Socios
                 </button>
 
@@ -63,24 +64,30 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
                 </button>
 
                 <button className="btn-gestion" onClick={() => setMostrarAutores(true)}>
+                    <UserRoundPen />
                     Autores
                 </button>
 
                 <button className="btn-gestion" onClick={() => setMostrarPagos(true)}>
+                    <CircleDollarSign />
+                    
                     Pagos
                 </button>
 
                 {esAdmin && (
                     <button className="btn-gestion" onClick={() => setMostrarUsuario(true)}>
+                        <UserStar />
                         Usuarios
                     </button>
                 )}
 
                 <button className="btn-gestion" onClick={() => setMostrarDevoluciones(true)}>
+                    <SquareArrowDownLeftEnter />
                     Devoluciones
                 </button>
 
                 <button className="btn-gestion" onClick={() => setMostrarPrestamos(true)}>
+                    <HandCoins />
                     Préstamos
                 </button>
 
