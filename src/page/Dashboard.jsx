@@ -8,6 +8,7 @@ import {
     UserRoundGroup,
     HandCoins,
     SquareArrowDownLeftEnter,
+    LogOut,
 } from 'lucide-react';
 import Socios from '../components/Socios.jsx';
 import Libro from '../components/Libros.jsx';
@@ -56,16 +57,27 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
     return (
         <div className="container-biblioteca">
             <div className="seccion-titulo">
-                <h1 className="nombre-biblioteca">
-                    Hola {usuarioActual?.nombre_completo || usuarioActual?.nombre_usuario}, bienvenido a la Biblioteca
-                </h1>
+                <div className="titulo-info">
+                    <h1 className="nombre-biblioteca">
+                        Hola {usuarioActual?.nombre_completo || usuarioActual?.nombre_usuario}, bienvenido a la Biblioteca
+                    </h1>
 
-                <p className="subtitulo-biblioteca">
-                    Un espacio para aprender, descubrir y compartir historias.{" "}
-                    <span className="badge bg-light text-dark ms-2">
-                        Rol: {usuarioActual?.rol || "BIBLIOTECARIO"}
-                    </span>
-                </p>
+                    <p className="subtitulo-biblioteca">
+                        Un espacio para aprender, descubrir y compartir historias.{" "}
+                        <span className="badge bg-light text-dark ms-2">
+                            Rol: {usuarioActual?.rol || "BIBLIOTECARIO"}
+                        </span>
+                    </p>
+                </div>
+
+                <button
+                    className="btn-cerrar-sesion"
+                    onClick={onCerrarSesion}
+                    title="Cerrar sesión"
+                >
+                    <LogOut size={18} />
+                    <span>Cerrar sesión</span>
+                </button>
             </div>
 
             <CitaDelDia />
@@ -187,15 +199,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
                     Reportes
                 </button>
 
-            </div>
-
-            <div className="acciones-finales">
-                <button
-                    className="btn-cerrar"
-                    onClick={onCerrarSesion}
-                >
-                    Cerrar sesión
-                </button>
             </div>
 
             <Socios
