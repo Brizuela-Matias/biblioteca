@@ -1,6 +1,4 @@
-/* 
-   ESTILO GENERAL
-*/
+/* ESTILO GENERAL*/
 
 * {
     box-sizing: border-box;
@@ -382,9 +380,7 @@ body {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* ==============================
-   DISEÑO PARA PANTALLAS PEQUEÑAS
-============================== */
+/* DISEÑO PARA PANTALLAS PEQUEÑAS*/
 
 @media (max-width: 800px) {
     .container-biblioteca {
@@ -414,9 +410,7 @@ body {
     }
 }
 
-/* ==============================
-   TITULO DE SECCIONES
-============================== */
+/* TITULO DE SECCIONES*/
 
 .titulo-secciones {
     margin-bottom: -10px;
