@@ -1,6 +1,6 @@
-/* ==============================
+/* 
    ESTILO GENERAL
-========================= */
+*/
 
 * {
     box-sizing: border-box;
@@ -18,9 +18,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* ==============================
+/* 
    PAGINA PRINCIPAL
-============================== */
+ */
 
 .container-biblioteca {
     display: grid;
@@ -32,9 +32,8 @@ body {
     padding: 45px 35px;
 }
 
-/* ==============================
-   TITULO
-============================== */
+/*  
+   TITULO 
 
 .seccion-titulo {
     display: flex;
@@ -91,6 +90,115 @@ body {
 .cita-autor {
     color: #82918a;
     font-size: 0.9rem;
+}
+
+/* ==============================
+   METRICAS Y RESULTADOS (EN INICIO)
+============================== */
+
+.seccion-metricas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .seccion-metricas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .seccion-metricas {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tarjeta-metrica {
+    background-color: white;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1eae5;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.tarjeta-metrica:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
+    border-color: #31966e;
+}
+
+.icono-metrica {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icono-metrica.socios {
+    background-color: #eaf5ef;
+    color: #27845d;
+}
+
+.icono-metrica.libros {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+.icono-metrica.prestamos {
+    background-color: #fef3e2;
+    color: #d97706;
+}
+
+.icono-metrica.recaudacion {
+    background-color: #f3f4f6;
+    color: #2b3a33;
+}
+
+.info-metrica {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.info-metrica .titulo-metrica {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.info-metrica .valor-metrica {
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.info-metrica .valor-metrica.socios {
+    color: #198754;
+}
+
+.info-metrica .valor-metrica.libros {
+    color: #0d6efd;
+}
+
+.info-metrica .valor-metrica.prestamos {
+    color: #d97706;
+}
+
+.info-metrica .valor-metrica.recaudacion {
+    color: #212529;
 }
 
 /* ==============================

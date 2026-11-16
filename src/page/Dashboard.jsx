@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
-import {BookOpen, BarChart3, CircleDollarSign, UserRoundPen, UserStar, UserRoundGroup,HandCoins, SquareArrowDownLeftEnter} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+    BookOpen,
+    BarChart3,
+    CircleDollarSign,
+    UserRoundPen,
+    UserStar,
+    UserRoundGroup,
+    HandCoins,
+    SquareArrowDownLeftEnter,
+} from 'lucide-react';
 import Socios from '../components/Socios.jsx';
 import Libro from '../components/Libros.jsx';
 import Pagos from '../components/Pagos.jsx';
@@ -9,6 +18,7 @@ import Prestamos from '../components/Prestamos.jsx';
 import Autores from '../components/Autores.jsx';
 import Reportes from '../components/Reportes.jsx';
 import CitaDelDia from '../components/common/CitaDelDia.jsx';
+import { apiRequest } from '../api.js';
 
 function Dashboard({ usuarioActual, onCerrarSesion }) {
 
@@ -21,7 +31,27 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
     const [mostrarPrestamos, setMostrarPrestamos] = useState(false);
     const [mostrarReportes, setMostrarReportes] = useState(false);
 
+    const [resumen, setResumen] = useState(null);
+
     const esAdmin = usuarioActual?.rol === "ADMIN";
+
+    const cargarResumen = async () => {
+        try {
+            const data = await apiRequest('/reportes/resumen');
+            setResumen(data);
+        } catch (error) {
+            console.error("Error al cargar resumen en inicio:", error);
+        }
+    };
+
+    useEffect(() => {
+        cargarResumen();
+    }, []);
+
+    const cerrarModalYRefrescar = (setter) => {
+        setter(false);
+        cargarResumen();
+    };
 
     return (
         <div className="container-biblioteca">
@@ -46,14 +76,82 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
             {/* TITULO DE SECCIONES */}
             <div className="titulo-secciones">
                 <h2>Panel de gestión</h2>
-                <p>Seleccioná una sección para comenzar a trabajar.</p>
+                <p>Seleccioná una sección para comenzar a trabajar o consultá las métricas en tiempo real.</p>
             </div>
+
+            {/* RESULTADOS / METRICAS DEL SISTEMA EN EL INICIO */}
+            {resumen && (
+                <div className="seccion-metricas">
+                    <div
+                        className="tarjeta-metrica"
+                        onClick={() => setMostrarSocios(true)}
+                        style={{ cursor: 'pointer' }}
+                        title="Ver Socios"
+                    >
+                        <div className="icono-metrica socios">
+                            <UserRoundGroup size={26} />
+                        </div>
+                        <div className="info-metrica">
+                            <span className="titulo-metrica">Socios Activos</span>
+                            <span className="valor-metrica socios">{resumen.socios_activos}</span>
+                        </div>
+                    </div>
+
+                    <div
+                        className="tarjeta-metrica"
+                        onClick={() => setMostrarLibros(true)}
+                        style={{ cursor: 'pointer' }}
+                        title="Ver Libros"
+                    >
+                        <div className="icono-metrica libros">
+                            <BookOpen size={26} />
+                        </div>
+                        <div className="info-metrica">
+                            <span className="titulo-metrica">Ejemplares Disponibles</span>
+                            <span className="valor-metrica libros">
+                                {resumen.ejemplares_disponibles} / {resumen.ejemplares_totales}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div
+                        className="tarjeta-metrica"
+                        onClick={() => setMostrarPrestamos(true)}
+                        style={{ cursor: 'pointer' }}
+                        title="Ver Préstamos Activos"
+                    >
+                        <div className="icono-metrica prestamos">
+                            <HandCoins size={26} />
+                        </div>
+                        <div className="info-metrica">
+                            <span className="titulo-metrica">Préstamos Activos</span>
+                            <span className="valor-metrica prestamos">{resumen.prestamos_activos}</span>
+                        </div>
+                    </div>
+
+                    <div
+                        className="tarjeta-metrica"
+                        onClick={() => setMostrarPagos(true)}
+                        style={{ cursor: 'pointer' }}
+                        title="Ver Pagos Registrados"
+                    >
+                        <div className="icono-metrica recaudacion">
+                            <CircleDollarSign size={26} />
+                        </div>
+                        <div className="info-metrica">
+                            <span className="titulo-metrica">Recaudación Total</span>
+                            <span className="valor-metrica recaudacion">
+                                ${Number(resumen.recaudacion_total || 0).toLocaleString('es-AR')}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* BOTONES PRINCIPALES */}
             <div className="seccion-botones">
 
                 <button className="btn-gestion" onClick={() => setMostrarSocios(true)}>
-                    {/* <UsersRound /> */}
                     <UserRoundGroup />
                     Socios
                 </button>
@@ -70,7 +168,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
 
                 <button className="btn-gestion" onClick={() => setMostrarPagos(true)}>
                     <CircleDollarSign />
-                    
                     Pagos
                 </button>
 
@@ -111,36 +208,36 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
             {/* VENTANAS */}
             <Socios
                 mostrar={mostrarSocios}
-                cerrar={() => setMostrarSocios(false)}
+                cerrar={() => cerrarModalYRefrescar(setMostrarSocios)}
             />
 
             {mostrarLibros && (
-                <Libro cerrar={() => setMostrarLibros(false)} esAdmin={esAdmin} />
+                <Libro cerrar={() => cerrarModalYRefrescar(setMostrarLibros)} esAdmin={esAdmin} />
             )}
 
             {mostrarAutores && (
-                <Autores cerrar={() => setMostrarAutores(false)} esAdmin={esAdmin} />
+                <Autores cerrar={() => cerrarModalYRefrescar(setMostrarAutores)} esAdmin={esAdmin} />
             )}
 
             {mostrarPagos && (
-                <Pagos cerrar={() => setMostrarPagos(false)} />
+                <Pagos cerrar={() => cerrarModalYRefrescar(setMostrarPagos)} />
             )}
 
             {esAdmin && mostrarUsuario && (
-                <Usuario cerrar={() => setMostrarUsuario(false)} />
+                <Usuario cerrar={() => cerrarModalYRefrescar(setMostrarUsuario)} />
             )}
 
             {mostrarDevoluciones && (
-                <Devoluciones cerrar={() => setMostrarDevoluciones(false)} />
+                <Devoluciones cerrar={() => cerrarModalYRefrescar(setMostrarDevoluciones)} />
             )}
 
             <Prestamos
                 mostrar={mostrarPrestamos}
-                cerrar={() => setMostrarPrestamos(false)}
+                cerrar={() => cerrarModalYRefrescar(setMostrarPrestamos)}
             />
 
             {mostrarReportes && (
-                <Reportes cerrar={() => setMostrarReportes(false)} />
+                <Reportes cerrar={() => cerrarModalYRefrescar(setMostrarReportes)} />
             )}
 
         </div>
@@ -148,4 +245,3 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
 }
 
 export default Dashboard;
-
