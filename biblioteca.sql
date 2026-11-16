@@ -15,7 +15,7 @@ CREATE DATABASE IF NOT EXISTS `biblioteca` DEFAULT CHARACTER SET utf8mb4 COLLATE
 USE `biblioteca`;
 
 -- --------------------------------------------------------
--- 1. ESTRUCTURA DE TABLAS DE PERSONAS, ROLES, SOCIOS Y USUARIOS
+-- Tablas
 -- --------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `persona` (
@@ -68,10 +68,6 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
--- 2. TABLAS MAESTRAS (CATÁLOGOS) Y LIBROS
--- --------------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `editorial` (
   `id_editorial` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
@@ -113,10 +109,6 @@ CREATE TABLE IF NOT EXISTS `libro` (
   CONSTRAINT `fk_libro_genero` FOREIGN KEY (`id_genero`) REFERENCES `genero` (`id_genero`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
--- 3. TABLA INTERMEDIA N:M (LIBRO_AUTOR)
--- --------------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `libro_autor` (
   `id_libro` int(11) NOT NULL,
   `id_autor` int(11) NOT NULL,
@@ -125,10 +117,6 @@ CREATE TABLE IF NOT EXISTS `libro_autor` (
   CONSTRAINT `fk_libroautor_libro` FOREIGN KEY (`id_libro`) REFERENCES `libro` (`id_libro`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_libroautor_autor` FOREIGN KEY (`id_autor`) REFERENCES `autor` (`id_autor`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
--- 4. TABLAS OPERATIVAS: PRÉSTAMOS/DEVOLUCIONES Y PAGOS
--- --------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `prestamo` (
   `id_prestamo` int(11) NOT NULL AUTO_INCREMENT,
@@ -162,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `pago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
--- 5. DATOS INICIALES DE PRUEBA (SEED)
+-- Volcado de datos
 -- --------------------------------------------------------
 
 INSERT INTO `rol` (`id_rol`, `nombre_rol`, `descripcion`) VALUES
@@ -211,7 +199,6 @@ INSERT INTO `libro` (`id_libro`, `isbn`, `titulo`, `anio_publicacion`, `id_edito
 (3, '978-84-450-3456-7', 'Fundación', 1951, 4, 2, 4, 4),
 (4, '978-84-481-4567-8', 'Fundamentos de Bases de Datos', 2014, 3, 3, 5, 5);
 
--- Relación N:M libro_autor (El libro 4 tiene dos coautores)
 INSERT INTO `libro_autor` (`id_libro`, `id_autor`) VALUES
 (1, 1),
 (2, 2),
@@ -231,7 +218,7 @@ INSERT INTO `pago` (`id_pago`, `id_socio`, `periodo`, `monto`, `fecha_pago`, `es
 COMMIT;
 
 -- --------------------------------------------------------
--- 6. PROCEDIMIENTOS ALMACENADOS TRANSACCIONALES
+-- Procedimientos almacenados
 -- --------------------------------------------------------
 
 DROP PROCEDURE IF EXISTS `sp_registrar_prestamo`;

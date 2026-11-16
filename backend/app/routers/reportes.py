@@ -33,7 +33,6 @@ async def obtener_resumen_general(db: AsyncSession = Depends(get_db)):
 
 @router.get("/prestamos-por-genero")
 async def reporte_prestamos_por_genero(db: AsyncSession = Depends(get_db)):
-    """Consulta 1: INNER JOIN + GROUP BY para analizar la demanda por género."""
     sql = text(
         """
         SELECT
@@ -64,7 +63,6 @@ async def reporte_prestamos_por_genero(db: AsyncSession = Depends(get_db)):
 
 @router.get("/socios-atencion")
 async def reporte_socios_con_deuda_o_prestamo(db: AsyncSession = Depends(get_db)):
-    """Consulta 2: INNER JOIN + Subconsultas + GROUP BY para seguimiento de socios con deuda o préstamo activo."""
     sql = text(
         """
         SELECT
@@ -112,7 +110,6 @@ async def reporte_socios_con_deuda_o_prestamo(db: AsyncSession = Depends(get_db)
 
 @router.get("/libros-destacados")
 async def reporte_libros_destacados(db: AsyncSession = Depends(get_db)):
-    """Consulta 3: INNER JOIN múltiple (incluyendo libro_autor N:M) + GROUP BY + Subconsulta HAVING AVG."""
     sql = text(
         """
         SELECT

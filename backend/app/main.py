@@ -11,7 +11,6 @@ from .routers.auth import obtener_usuario_actual, requerir_admin
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    # Crea las tablas de forma asíncrona si no existen en MySQL
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield
@@ -19,13 +18,11 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(
-    title="API Biblioteca",
-    description="Backend asíncrono con FastAPI + SQLAlchemy AsyncSession + aiomysql + JWT (5 min)",
-    version="1.1.0",
+    title="Biblioteca API",
+    version="1.0.0",
     lifespan=lifespan,
 )
 
-# Habilitar CORS para cualquier puerto local de Vite (5173, 5174, 5175, etc.)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -34,10 +31,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Ruta pública de login y verificación de token
 app.include_router(auth.router)
 
-# Rutas protegidas con JWT (requieren sesión activa de <= 5 minutos)
 dependencia_jwt = [Depends(obtener_usuario_actual)]
 dependencia_admin = [Depends(requerir_admin)]
 app.include_router(socios.router, dependencies=dependencia_jwt)
@@ -63,4 +58,4 @@ async def validation_exception_handler(_request: Request, exc: RequestValidation
 
 @app.get("/")
 async def health_check():
-    return {"estado": "ok", "servicio": "API Biblioteca UTN (Async)", "docs": "/docs"}
+    return {"status": "ok"}

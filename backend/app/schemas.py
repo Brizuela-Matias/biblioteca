@@ -27,9 +27,7 @@ def _validar_texto_obligatorio(v: str, campo: str) -> str:
     return limpio
 
 
-# ==========================
-# AUTH (JWT - 5 minutos)
-# ==========================
+# Auth
 class LoginRequest(BaseModel):
     nombre_usuario: str = Field(..., min_length=1)
     clave: str = Field(..., min_length=1)
@@ -45,9 +43,7 @@ class LoginResponse(BaseModel):
     rol: str
 
 
-# ==========================
-# SOCIOS
-# ==========================
+# Socios
 class SocioCreate(BaseModel):
     nombre_completo: Optional[str] = None
     nombre: Optional[str] = None
@@ -126,9 +122,7 @@ class SocioOut(BaseModel):
     libros_en_prestamo: List[str] = []
 
 
-# ==========================
-# USUARIOS
-# ==========================
+# Usuarios
 class UsuarioCreate(BaseModel):
     nombre_completo: Optional[str] = None
     nombre: Optional[str] = None
@@ -214,9 +208,7 @@ class UsuarioOut(BaseModel):
     ultimo_acceso: Optional[datetime] = None
 
 
-# ==========================
-# LIBROS Y CATÁLOGOS
-# ==========================
+# Libros y catalogos
 class AutorCreate(BaseModel):
     nombre: str
     apellido: str
@@ -325,9 +317,7 @@ class LibroOut(BaseModel):
     stock_disponible: int
 
 
-# ==========================
-# PRÉSTAMOS Y DEVOLUCIONES
-# ==========================
+# Prestamos
 class PrestamoCreate(BaseModel):
     numero_documento: str
     nombre_socio: Optional[str] = None
@@ -358,9 +348,7 @@ class PrestamoOut(BaseModel):
     estado: str
 
 
-# ==========================
-# PAGOS
-# ==========================
+# Pagos
 class PagoCreate(BaseModel):
     numero_documento: str
     periodo: str = "2026-11"

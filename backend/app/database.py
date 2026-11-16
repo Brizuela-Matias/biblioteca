@@ -3,7 +3,6 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declarative_base
 
-# Conexión asíncrona por defecto para XAMPP / MariaDB local con aiomysql
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "mysql+aiomysql://root:@127.0.0.1:3306/biblioteca?charset=utf8mb4",

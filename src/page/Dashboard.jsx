@@ -55,8 +55,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
 
     return (
         <div className="container-biblioteca">
-
-            {/* TITULO */}
             <div className="seccion-titulo">
                 <h1 className="nombre-biblioteca">
                     Hola {usuarioActual?.nombre_completo || usuarioActual?.nombre_usuario}, bienvenido a la Biblioteca
@@ -70,16 +68,13 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
                 </p>
             </div>
 
-            {/* CITA DEL DIA */}
             <CitaDelDia />
 
-            {/* TITULO DE SECCIONES */}
             <div className="titulo-secciones">
                 <h2>Panel de gestión</h2>
                 <p>Seleccioná una sección para comenzar a trabajar o consultá las métricas en tiempo real.</p>
             </div>
 
-            {/* RESULTADOS / METRICAS DEL SISTEMA EN EL INICIO */}
             {resumen && (
                 <div className="seccion-metricas">
                     <div
@@ -148,7 +143,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
                 </div>
             )}
 
-            {/* BOTONES PRINCIPALES */}
             <div className="seccion-botones">
 
                 <button className="btn-gestion" onClick={() => setMostrarSocios(true)}>
@@ -195,7 +189,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
 
             </div>
 
-            {/* CERRAR SESION */}
             <div className="acciones-finales">
                 <button
                     className="btn-cerrar"
@@ -205,7 +198,6 @@ function Dashboard({ usuarioActual, onCerrarSesion }) {
                 </button>
             </div>
 
-            {/* VENTANAS */}
             <Socios
                 mostrar={mostrarSocios}
                 cerrar={() => cerrarModalYRefrescar(setMostrarSocios)}

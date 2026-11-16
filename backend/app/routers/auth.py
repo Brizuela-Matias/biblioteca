@@ -16,7 +16,7 @@ from ..schemas import LoginRequest, LoginResponse
 
 router = APIRouter(prefix="/api/auth", tags=["Autenticación"])
 
-# Configuración JWT (Duración estricta de 5 minutos por sesión)
+# JWT
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "clave_secreta_biblioteca_utn_2026_jwt")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 5

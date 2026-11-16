@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { apiRequest, guardarSesion } from '../api';
 
-// COMPONENTE LOGIN
 function Login({ onLoginSuccess }) {
 
   const [usuario, setUsuario] = useState('');

@@ -13,7 +13,6 @@ function Pagos({ cerrar }) {
     const [busqueda, setBusqueda] = useState('');
     const [cargando, setCargando] = useState(false);
 
-    // Estado para registrar pago
     const [dniNuevoPago, setDniNuevoPago] = useState('');
     const [periodo, setPeriodo] = useState('2026-11');
     const [monto, setMonto] = useState('5000');

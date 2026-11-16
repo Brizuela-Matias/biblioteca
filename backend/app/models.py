@@ -14,7 +14,6 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from .database import Base
 
-# Tabla intermedia Muchos a Muchos (N:M) entre Libro y Autor
 libro_autor = Table(
     "libro_autor",
     Base.metadata,

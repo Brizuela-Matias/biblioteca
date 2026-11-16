@@ -40,7 +40,6 @@ function Reportes({ cerrar }) {
     const configuraciones = {
         generos: {
             titulo: 'Reporte: Préstamos por Género Literario',
-            //  'Consulta SQL con INNER JOIN y agrupamiento GROUP BY',
             fileName: 'reporte_prestamos_por_genero',
             sheetName: 'Prestamos por Genero',
             data: porGenero,
@@ -63,7 +62,6 @@ function Reportes({ cerrar }) {
         },
         socios: {
             titulo: 'Reporte: Socios con Deuda o Préstamo Activo',
-            //  'Consulta SQL con INNER JOIN, Subconsultas y GROUP BY',
             fileName: 'reporte_socios_atencion',
             sheetName: 'Socios Atencion',
             data: sociosAtencion,
@@ -102,8 +100,7 @@ function Reportes({ cerrar }) {
                 ]),
         },
         libros: {
-            titulo: 'Reporte: Libros Destacados (Demanda >= Promedio)',
-            //  'Consulta SQL con INNER JOIN múltiple (N:M), GROUP BY y Subconsulta HAVING AVG',
+            titulo: 'Reporte: Libros Destacados',
             fileName: 'reporte_libros_destacados',
             sheetName: 'Libros Destacados',
             data: librosDestacados,
